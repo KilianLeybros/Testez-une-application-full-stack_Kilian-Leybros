@@ -2,6 +2,7 @@ package com.openclassrooms.starterjwt.services;
 
 import com.openclassrooms.starterjwt.data.SessionList;
 import com.openclassrooms.starterjwt.models.Session;
+import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.repository.SessionRepository;
 import com.openclassrooms.starterjwt.repository.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -11,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +81,58 @@ public class SessionServiceTest {
 
         // Then
         org.junit.jupiter.api.Assertions.assertNull(retrievedSession);
+    }
+
+    @Test
+    public void shouldCreateSession(){
+        // Given
+        Session sessionToCreate = new Session(
+                4L,
+                "Une session4",
+                Date.from(Instant.now()),
+                "Une description4",
+                new Teacher(), null,
+                LocalDateTime.now(),
+                null);
+        Mockito.when(sessionRepository.save(sessionToCreate)).then(s ->{
+            sessions.add(s.getArgument(0));
+            return sessionToCreate;
+        });
+
+
+        // When
+        Session createdSession = sessionService.create(sessionToCreate);
+
+        // Then
+        Assertions.assertThat(sessions).contains(sessionToCreate);
+
+    }
+
+    @Test
+    public void shouldUpdateSession(){
+        // Given
+        Long updatedSessionId = 1L;
+        LocalDateTime updatedDate = LocalDateTime.now();
+        Session sessionToUpdate = new Session(
+                null,
+                "Une session modifiée",
+                Date.from(Instant.now()),
+                "Une description modifiée",
+                new Teacher(), null,
+                LocalDateTime.now(),
+                updatedDate);
+        Mockito.when(sessionRepository.save(sessionToUpdate)).then(s ->{
+            sessions.set(0,s.getArgument(0));
+            return sessionToUpdate;
+        });
+
+
+        // When
+        Session updatedSession = sessionService.update(updatedSessionId, sessionToUpdate);
+
+        // Then
+        Assertions.assertThat(sessions).contains(updatedSession);
+        Assertions.assertThat(updatedSession.getUpdatedAt()).isEqualTo(updatedDate);
+        Assertions.assertThat(updatedSession.getName()).isEqualTo("Une session modifiée");
     }
 }
