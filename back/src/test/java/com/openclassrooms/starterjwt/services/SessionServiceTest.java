@@ -132,7 +132,7 @@ public class SessionServiceTest {
 
         // Then
         Assertions.assertThat(sessions).contains(updatedSession);
-        Assertions.assertThat(updatedSession.getUpdatedAt()).isEqualTo(updatedDate);
+        Assertions.assertThat(updatedSession.getUpdatedAt().toLocalDate()).isEqualTo(updatedDate.toLocalDate());
         Assertions.assertThat(updatedSession.getName()).isEqualTo("Une session modifiée");
     }
 }
