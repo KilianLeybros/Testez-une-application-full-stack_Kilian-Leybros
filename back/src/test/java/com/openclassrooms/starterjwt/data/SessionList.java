@@ -1,5 +1,6 @@
 package com.openclassrooms.starterjwt.data;
 
+import com.openclassrooms.starterjwt.dto.SessionDto;
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.models.User;
@@ -28,5 +29,21 @@ public class SessionList {
         sessions.add(session3);
 
         return sessions;
+    }
+
+    public static List<SessionDto> initDtoList(){
+        List<Long> users = new ArrayList<Long>();
+        List<SessionDto> sessionsDto = new ArrayList<SessionDto>();
+
+        SessionDto sessionDto1 = new SessionDto(1L, "session1", Date.from(Instant.now()), null, "Une description", users , LocalDateTime.now(), LocalDateTime.now());
+        sessionsDto.add(sessionDto1);
+
+        SessionDto sessionDto2 = new SessionDto(1L, "session2", Date.from(Instant.now()), null, "Une description2", users , LocalDateTime.now(), LocalDateTime.now());
+        sessionsDto.add(sessionDto2);
+
+        SessionDto sessionDto3 = new SessionDto(1L, "session3", Date.from(Instant.now()), null, "Une description3", users , LocalDateTime.now(), LocalDateTime.now());
+        sessionsDto.add(sessionDto3);
+
+        return sessionsDto;
     }
 }
