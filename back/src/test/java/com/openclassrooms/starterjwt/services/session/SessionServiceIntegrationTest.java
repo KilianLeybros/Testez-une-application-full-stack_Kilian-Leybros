@@ -1,9 +1,10 @@
-package com.openclassrooms.starterjwt.services;
+package com.openclassrooms.starterjwt.services.session;
 
 
 import com.openclassrooms.starterjwt.exception.BadRequestException;
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.models.Session;
-import com.openclassrooms.starterjwt.models.Teacher;
+import com.openclassrooms.starterjwt.services.SessionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.annotation.DirtiesContext;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -147,20 +147,7 @@ public class SessionServiceIntegrationTest {
                 .containsExactly(1L, 2L, 3L);
     }
 
-    @Test
-    public void shouldNoLongerParticipateToSession(){
-        // Given
-        Long sessionId = 1L;
-        Long userId = 2L;
 
-        // When
-        sessionService.noLongerParticipate(sessionId, userId);
-        Session session = sessionService.getById(sessionId);
-
-        // Then
-        org.assertj.core.api.Assertions.assertThat(session.getUsers()).extracting("id")
-                .containsExactly(1L);
-    }
 
 
     @Test
@@ -176,6 +163,46 @@ public class SessionServiceIntegrationTest {
     }
 
     @Test
+    public void shouldFailToParticipateToSession_WhenSessionNotFound(){
+        // Given
+        Long sessionId = 999L;
+        Long userId = 2L;
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
+    }
+
+    @Test
+    public void shouldFailToParticipateToSession_WhenUserNotFound(){
+        // Given
+        Long sessionId = 1L;
+        Long userId = 999L;
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
+    }
+
+
+    @Test
+    public void shouldNoLongerParticipateToSession(){
+        // Given
+        Long sessionId = 1L;
+        Long userId = 2L;
+
+        // When
+        sessionService.noLongerParticipate(sessionId, userId);
+        Session session = sessionService.getById(sessionId);
+
+        // Then
+        org.assertj.core.api.Assertions.assertThat(session.getUsers()).extracting("id")
+                .containsExactly(1L);
+    }
+
+    @Test
     public void shouldFailToNoLongerParticipateToSession_WhenAlreadyNoParticipate(){
         // Given
         Long sessionId = 1L;
@@ -186,4 +213,21 @@ public class SessionServiceIntegrationTest {
             sessionService.noLongerParticipate(sessionId, userId);
         }).isInstanceOf(BadRequestException.class);
     }
+
+    @Test
+    public void shouldFailToNoLongerParticipateToSession_WhenSessionNotFound(){
+        // Given
+        Long sessionId = 999L;
+        Long userId = 2L;
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
+    }
+
+
+
+
+
 }

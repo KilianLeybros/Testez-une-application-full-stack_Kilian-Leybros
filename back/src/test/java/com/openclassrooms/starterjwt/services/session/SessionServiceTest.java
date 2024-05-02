@@ -1,15 +1,16 @@
-package com.openclassrooms.starterjwt.services;
+package com.openclassrooms.starterjwt.services.session;
 
 import com.openclassrooms.starterjwt.data.SessionList;
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.repository.SessionRepository;
 import com.openclassrooms.starterjwt.repository.UserRepository;
+import com.openclassrooms.starterjwt.services.SessionService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.time.Instant;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 
 public class SessionServiceTest {
     @Mock
@@ -39,7 +42,7 @@ public class SessionServiceTest {
     @Test
     public void shouldRetrieveAllSessions(){
         // Given
-        Mockito.when(sessionRepository.findAll()).thenReturn(sessions);
+        when(sessionRepository.findAll()).thenReturn(sessions);
 
         // When
         List<Session> allSessions = sessionService.findAll();
@@ -55,7 +58,7 @@ public class SessionServiceTest {
     public void shouldRetrieveSession(){
         // Given
         Long sessionToRetrieve = 2L;
-        Mockito.when(sessionRepository.findById(sessionToRetrieve))
+        when(sessionRepository.findById(sessionToRetrieve))
                 .thenReturn(Optional.of(sessions.stream()
                         .filter(s -> s.getId().equals(sessionToRetrieve))
                         .findFirst()
@@ -74,7 +77,7 @@ public class SessionServiceTest {
     public void shouldReturnNull_WhenSessionDoesNotExist(){
         // Given
         Long sessionToRetrieve = 4L;
-        Mockito.when(sessionRepository.findById(sessionToRetrieve)).thenReturn(Optional.empty());
+        when(sessionRepository.findById(sessionToRetrieve)).thenReturn(Optional.empty());
 
         // When
         Session retrievedSession = sessionService.getById(sessionToRetrieve);
@@ -94,7 +97,7 @@ public class SessionServiceTest {
                 new Teacher(), null,
                 LocalDateTime.now(),
                 null);
-        Mockito.when(sessionRepository.save(sessionToCreate)).then(s ->{
+        when(sessionRepository.save(sessionToCreate)).then(s ->{
             sessions.add(s.getArgument(0));
             return sessionToCreate;
         });
@@ -121,7 +124,7 @@ public class SessionServiceTest {
                 new Teacher(), null,
                 LocalDateTime.now(),
                 updatedDate);
-        Mockito.when(sessionRepository.save(sessionToUpdate)).then(s ->{
+        when(sessionRepository.save(sessionToUpdate)).then(s ->{
             sessions.set(0,s.getArgument(0));
             return sessionToUpdate;
         });
@@ -134,5 +137,46 @@ public class SessionServiceTest {
         Assertions.assertThat(sessions).contains(updatedSession);
         Assertions.assertThat(updatedSession.getUpdatedAt().toLocalDate()).isEqualTo(updatedDate.toLocalDate());
         Assertions.assertThat(updatedSession.getName()).isEqualTo("Une session modifiée");
+    }
+
+
+    @Test
+    public void shouldFailToParticipateToSession_WhenSessionNotFound(){
+        // Given
+        Long sessionId = 999L;
+        Long userId = 2L;
+        when(sessionRepository.getById(sessionId)).thenReturn(null);
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
+    }
+
+    @Test
+    public void shouldFailToParticipateToSession_WhenUserNotFound(){
+        // Given
+        Long sessionId = 1L;
+        Long userId = 999L;
+        when(userRepository.getById(userId)).thenReturn(null);
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
+    }
+
+
+    @Test
+    public void shouldFailToNoLongerParticipateToSession_WhenSessionNotFound(){
+        // Given
+        Long sessionId = 999L;
+        Long userId = 2L;
+        when(sessionRepository.getById(sessionId)).thenReturn(null);
+
+        // When / Then
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
+            sessionService.participate(sessionId, userId);
+        }).isInstanceOf(NotFoundException.class);
     }
 }
