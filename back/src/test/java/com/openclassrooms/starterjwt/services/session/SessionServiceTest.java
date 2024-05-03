@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 public class SessionServiceTest {
     @Mock
@@ -137,6 +138,19 @@ public class SessionServiceTest {
         Assertions.assertThat(sessions).contains(updatedSession);
         Assertions.assertThat(updatedSession.getUpdatedAt().toLocalDate()).isEqualTo(updatedDate.toLocalDate());
         Assertions.assertThat(updatedSession.getName()).isEqualTo("Une session modifiée");
+    }
+
+    @Test
+    public void shouldDeleteSession(){
+        // Given
+        Long sessionToDelete = 2L;
+        willDoNothing().given(sessionRepository).deleteById(sessionToDelete);
+
+        // When
+        sessionService.delete(sessionToDelete);
+
+        // Then
+        verify(sessionRepository, times(1)).deleteById(sessionToDelete);
     }
 
 
