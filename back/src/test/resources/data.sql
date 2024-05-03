@@ -5,7 +5,7 @@ INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at
 VALUES (1, 'Doe', 'John', true, 'johndoe@gmail.com', '123456', '2024-04-26', null);
 
 INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at, updated_at)
-VALUES (2, 'Doe2', 'John2', true, 'johndoe2@gmail.com', '123456', '2024-04-26', null);
+VALUES (2, 'Doe2', 'John2', true, 'johndoe2@gmail.com', '$2a$10$b0g598cb8kBqzob940yw1Oz7aXBtOyYvn1KRPO5YEi3858IsB2GnW', '2024-04-26', null);
 
 INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at, updated_at)
 VALUES (3, 'Doe3', 'John3', true, 'johndoe3@gmail.com', '123456', '2024-04-26', null);
