@@ -43,7 +43,6 @@ public class SessionControllerTestEnd2End {
         httpHeaders.set("Authorization", "Bearer " + playerResponseEntity.getBody().getToken());
     }
     @Test
-    @WithMockUser(username = "johndoe2@gmail.com", password = "123456")
     public void shouldCreateSession(){
         // Given
         SessionDto sessionToCreate = new SessionDto(
@@ -71,7 +70,6 @@ public class SessionControllerTestEnd2End {
 
 
     @Test
-    @WithMockUser(username = "johndoe2@gmail.com", password = "123456")
     public void shouldFailToCreateSession_WhenSessionDtoIsNotValid(){
         // Given
         SessionDto sessionToCreate = new SessionDto(
@@ -97,7 +95,6 @@ public class SessionControllerTestEnd2End {
 
 
     @Test
-    @WithMockUser(username = "johndoe2@gmail.com", password = "123456")
     public void shouldParticipateToSession(){
         // Given
         Long sessionId = 1L;
