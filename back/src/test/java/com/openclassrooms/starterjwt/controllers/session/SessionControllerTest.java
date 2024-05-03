@@ -171,6 +171,18 @@ public class SessionControllerTest {
 
     @Test
     @WithMockUser
+    public void shouldFailToUpdateSession400_WhenSessionIdNotANumber() throws Exception {
+        // Given
+        String sessionId = "AAA";
+
+        // When / Then
+        mockMvc.perform(put("/api/session/" + sessionId))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    @WithMockUser
     public void shouldDeleteSession() throws Exception {
         // Given
         long sessionId = 1L;

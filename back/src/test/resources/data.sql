@@ -11,7 +11,10 @@ INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at
 VALUES (3, 'Doe3', 'John3', true, 'johndoe3@gmail.com', '123456', '2024-04-26', null);
 
 INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at, updated_at)
-VALUES (4, 'Doe4', 'John4', true, 'johndoe4@gmail.com', '123456', '2024-04-26', null);
+VALUES (4, 'Doe4', 'John4', true, 'johndoe4@gmail.com', '$2a$10$b0g598cb8kBqzob940yw1Oz7aXBtOyYvn1KRPO5YEi3858IsB2GnW', '2024-04-26', null);
+
+INSERT INTO USERS (id, last_name, first_name, admin, email, password, created_at, updated_at)
+VALUES (5, 'Doe5', 'John5', true, 'johndoe5@gmail.com', '$2a$10$b0g598cb8kBqzob940yw1Oz7aXBtOyYvn1KRPO5YEi3858IsB2GnW', '2024-04-26', null);
 
 
 INSERT INTO TEACHERS (id, last_name, first_name, created_at, updated_at)
