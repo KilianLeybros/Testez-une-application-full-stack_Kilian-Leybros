@@ -1,13 +1,7 @@
 package com.openclassrooms.starterjwt.services.teacher;
-
-import com.openclassrooms.starterjwt.data.SessionList;
 import com.openclassrooms.starterjwt.data.TeacherList;
-import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.models.Teacher;
-import com.openclassrooms.starterjwt.repository.SessionRepository;
 import com.openclassrooms.starterjwt.repository.TeacherRepository;
-import com.openclassrooms.starterjwt.repository.UserRepository;
-import com.openclassrooms.starterjwt.services.SessionService;
 import com.openclassrooms.starterjwt.services.TeacherService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
