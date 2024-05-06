@@ -190,7 +190,7 @@ public class SessionServiceTest {
 
         // When / Then
         org.assertj.core.api.Assertions.assertThatThrownBy(() -> {
-            sessionService.participate(sessionId, userId);
+            sessionService.noLongerParticipate(sessionId, userId);
         }).isInstanceOf(NotFoundException.class);
     }
 }
