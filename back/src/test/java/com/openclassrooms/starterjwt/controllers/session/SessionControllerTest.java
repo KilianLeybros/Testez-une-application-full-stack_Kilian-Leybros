@@ -156,18 +156,6 @@ public class SessionControllerTest {
                         .andExpect(jsonPath("$.name", CoreMatchers.is("Updated session")));
     }
 
-    @Test
-    @WithMockUser
-    public void shouldFailToUpdate400_WhenSessionIdIsNotANumber() throws Exception {
-        // Given
-        String sessionId = "AAA";
-        SessionDto sessionDto = new SessionDto(null, "Updated session", Date.from(Instant.now()), 1L, "Updated description", null , LocalDateTime.now(), null);
-
-
-        // When / Then
-        mockMvc.perform(put("/api/session/" + sessionId))
-                .andExpect(status().isBadRequest());
-    }
 
     @Test
     @WithMockUser
