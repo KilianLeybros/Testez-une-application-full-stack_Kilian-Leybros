@@ -11,7 +11,6 @@ import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/services/session.service';
 
 import { LoginComponent } from './login.component';
-import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -59,7 +58,7 @@ describe('LoginComponent', () => {
     }).compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    component?.form.get('email')!.setValue('dsqds@dsq.com');
+    component?.form.get('email')!.setValue('test@test.com');
     component?.form.get('password')!.setValue('aaa');
     fixture.detectChanges();
   });
