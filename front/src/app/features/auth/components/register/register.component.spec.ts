@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -62,7 +62,6 @@ describe('RegisterComponent', () => {
     component!.onError = true;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    console.log(compiled);
     expect(compiled.querySelector('.error')).not.toBeNull();
   });
 
