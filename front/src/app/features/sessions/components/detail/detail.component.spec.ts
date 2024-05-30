@@ -54,7 +54,7 @@ describe('DetailComponent', () => {
     },
   };
   const mockSnackBar = {
-    open: Function,
+    open: jest.fn(),
   };
   const mockApiSessionService = {
     all: jest.fn().mockReturnValue(of([])),
@@ -195,12 +195,10 @@ describe('DetailComponent', () => {
     expect(snackBarSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('should navigate to /session after delete', async () => {
+  it('should navigate to /session after delete', () => {
     const navigateSpy = jest.spyOn(mockRouter, 'navigate');
     component?.delete();
-    await setInterval(() => {
-      expect(navigateSpy).toHaveBeenCalledWith(['sessions']);
-    }, 1000);
+    expect(navigateSpy).toHaveBeenCalledWith(['sessions']);
   });
 
   it('should should participate to session', async () => {
