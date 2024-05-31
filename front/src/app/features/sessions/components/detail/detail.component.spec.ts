@@ -183,7 +183,7 @@ describe('DetailComponent', () => {
 
   it('fetchSession should be called', () => {
     const sessionApiSpy = jest.spyOn(mockApiSessionService, 'detail');
-    fixture.detectChanges(); // trigger ngOnInit here
+    fixture.detectChanges();
     expect(sessionApiSpy).toHaveBeenCalled();
   });
 

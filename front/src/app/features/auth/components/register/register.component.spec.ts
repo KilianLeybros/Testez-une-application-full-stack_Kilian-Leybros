@@ -143,6 +143,7 @@ describe('RegisterComponent', () => {
   // Integration
   it('submit should register and redirect to /login', () => {
     const navigateSpy = jest.spyOn(mockRouter, 'navigate');
+    console.log(navigateSpy);
     component?.submit();
     expect(authService.register).toHaveBeenCalled();
     expect(navigateSpy).toHaveBeenCalledWith(['/login']);
