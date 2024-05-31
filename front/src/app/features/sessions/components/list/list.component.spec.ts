@@ -64,6 +64,11 @@ describe('ListComponent', () => {
     expect(sessions).not.toBeNull();
   });
 
+  it('should display list of sessions', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('mat-card.item')).not.toBeNull();
+  });
+
   it('should show create button when user connected is admin', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(
@@ -91,6 +96,6 @@ describe('ListComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const buttonContainerLength =
       compiled.querySelector('mat-card-actions')?.children.length;
-    expect(buttonContainerLength).not.toBe(1);
+    expect(buttonContainerLength).toBe(1);
   });
 });
