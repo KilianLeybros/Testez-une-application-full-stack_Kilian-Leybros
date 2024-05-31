@@ -12,7 +12,7 @@ import { RegisterComponent } from './register.component';
 import { AuthService } from '../../services/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -22,10 +22,7 @@ describe('RegisterComponent', () => {
     navigate: Function,
   };
 
-  interface MockedAuthService {
-    register: Function;
-  }
-  const authService: MockedAuthService = {
+  let authService = {
     register: jest.fn().mockReturnValue(of([])),
   };
   beforeEach(async () => {
@@ -55,8 +52,6 @@ describe('RegisterComponent', () => {
     component!.form.get('lastName')!.setValue('Test');
     fixture.detectChanges();
   });
-
-  // Unit
 
   it('should show an error message when onError is true', () => {
     component!.onError = true;
@@ -143,20 +138,21 @@ describe('RegisterComponent', () => {
   // Integration
   it('submit should register and redirect to /login', () => {
     const navigateSpy = jest.spyOn(mockRouter, 'navigate');
-    console.log(navigateSpy);
+    const authServiceSpy = jest.spyOn(authService, 'register');
     component?.submit();
-    expect(authService.register).toHaveBeenCalled();
+    expect(authServiceSpy).toHaveBeenCalled();
     expect(navigateSpy).toHaveBeenCalledWith(['/login']);
   });
 
   it('onError should be true when authService throw an error', async () => {
-    try {
-      const registerMock = jest.spyOn(authService, 'register' as never);
-      registerMock.mockImplementation(() => {
-        throw new Error();
-      });
-    } catch (err) {
-      expect(component?.onError).toBeTruthy();
-    }
+    component!.onError = false;
+    fixture.detectChanges();
+    const registerMock = jest.spyOn(authService, 'register');
+
+    registerMock.mockReturnValue(throwError(() => {}));
+
+    await component?.submit();
+
+    expect(component?.onError).toBeTruthy();
   });
 });

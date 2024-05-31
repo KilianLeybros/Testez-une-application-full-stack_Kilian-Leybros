@@ -122,7 +122,6 @@ describe('DetailComponent', () => {
     component.isAdmin = false;
     component.isParticipate = false;
     fixture.detectChanges();
-    console.log(component.isAdmin);
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector("button[color='warn']")).toBeNull();
   });
@@ -152,7 +151,6 @@ describe('DetailComponent', () => {
 
   it('should display created date', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    console.log(component.session?.createdAt?.toString());
     expect(compiled.querySelector('.created')?.textContent?.trim()).toBe(
       `Create at:  ${datePipe.transform(
         component.session?.createdAt,

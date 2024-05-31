@@ -11,7 +11,7 @@ import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/services/session.service';
 
 import { LoginComponent } from './login.component';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -23,17 +23,10 @@ describe('LoginComponent', () => {
     navigate: Function,
   };
 
-  interface MockedAuthService {
-    login: Function;
-  }
-  interface MockedSessionService {
-    logIn: Function;
-  }
-
-  const sessionService: MockedSessionService = {
+  let sessionService = {
     logIn: jest.fn().mockReturnValue(of([])),
   };
-  const authService: MockedAuthService = {
+  let authService = {
     login: jest.fn().mockReturnValue(of([])),
   };
 
@@ -69,8 +62,6 @@ describe('LoginComponent', () => {
 
     fixture.detectChanges();
   });
-
-  // Unit
 
   it('should show an error message when onError is true', () => {
     component!.onError = true;
@@ -121,24 +112,25 @@ describe('LoginComponent', () => {
     ).not.toBeNull();
   });
 
-  // Integration
-
   it('submit should login, create a session and redirect to /sessions', () => {
     const navigateSpy = jest.spyOn(mockRouter, 'navigate');
+    const authServiceSpy = jest.spyOn(authService, 'login');
+    const sessionServiceSpy = jest.spyOn(sessionService, 'logIn');
     component?.submit();
-    expect(authService.login).toHaveBeenCalled();
-    expect(sessionService.logIn).toHaveBeenCalled();
+    expect(authServiceSpy).toHaveBeenCalled();
+    expect(sessionServiceSpy).toHaveBeenCalled();
     expect(navigateSpy).toHaveBeenCalledWith(['/sessions']);
   });
 
   it('onError should be true when authService throw an error', async () => {
-    try {
-      const loginMock = jest.spyOn(authService, 'login' as never);
-      loginMock.mockImplementation(() => {
-        throw new Error();
-      });
-    } catch (err) {
-      expect(component?.onError).toBeTruthy();
-    }
+    component!.onError = false;
+    fixture.detectChanges();
+    const loginMock = jest.spyOn(authService, 'login');
+
+    loginMock.mockReturnValue(throwError(() => {}));
+
+    await component?.submit();
+
+    expect(component?.onError).toBeTruthy();
   });
 });
