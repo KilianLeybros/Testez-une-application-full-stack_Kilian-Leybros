@@ -5,11 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@jest/globals';
 
 import { AppComponent } from './app.component';
-import { ActivatedRoute, Router, convertToParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { SessionService } from './services/session.service';
-import { BehaviorSubject, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AuthService } from './features/auth/services/auth.service';
-import { UserService } from './services/user.service';
 
 describe('AppComponent', () => {
   let component: AppComponent;
