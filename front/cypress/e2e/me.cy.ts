@@ -1,4 +1,4 @@
-describe('Detail spec', () => {
+describe('Me spec', () => {
   it('Should display user info', () => {
     cy.loginAdmin();
 
