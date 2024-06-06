@@ -1,4 +1,3 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { expect } from '@jest/globals';
 import { AuthService } from './auth.service';
@@ -6,20 +5,19 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SessionInformation } from 'src/app/interfaces/sessionInformation.interface';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpTesting: HttpTestingController;
-  let httpClient: HttpClient;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(AuthService);
     httpTesting = TestBed.inject(HttpTestingController);
-    //httpClient = TestBed.inject(HttpClient);
   });
 
   it('should register', () => {
