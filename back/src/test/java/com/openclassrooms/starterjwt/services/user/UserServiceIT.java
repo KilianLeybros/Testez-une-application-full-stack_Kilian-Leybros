@@ -9,15 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.List;
-
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class UserIntegrationServiceTest {
+public class UserServiceIT {
 
     @Autowired
     private UserService userService;

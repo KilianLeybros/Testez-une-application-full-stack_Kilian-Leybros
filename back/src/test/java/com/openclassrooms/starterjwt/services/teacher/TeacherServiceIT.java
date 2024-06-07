@@ -12,7 +12,7 @@ import java.util.List;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class TeacherIntegrationServiceTest {
+public class TeacherServiceIT {
 
     @Autowired
     private TeacherService teacherService;
