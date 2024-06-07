@@ -1,6 +1,6 @@
-# Developpez-le-back-end-Kilian-en-utilisant-Java-et-Spring_Kilian-Leybros
+# Testez-une-application-full-stack_Kilian-Leybros
 
-## Clone the project
+# Cloner le projet
 
 Git clone : https://github.com/KilianLeybros/Testez-une-application-full-stack_Kilian-Leybros.git
 
@@ -12,7 +12,7 @@ Se rendre à la racine du projet backend (/back) et installer les dépendances g
 
 > mvn clean install
 
-# Test
+### Test
 
 Pour lancer les tests :
 
@@ -22,7 +22,7 @@ Une fois les tests terminés, le rapport de couverture Jacoco sera disponible ic
 
 > `back/target/site/jacoco/index.html`
 
-# Démarrer le projet back
+### Démarrer le projet back
 
 Si vous avez besoin de démarrer le back, il vous faudra installer MySQL server version 8 ainsi qu'un client MySQL (MySQL Workbench, phpMyAdmin),
 lien de téléchargement : https://dev.mysql.com/downloads/installer/
@@ -54,11 +54,11 @@ Se rendre à la racine du projet frontend (/front) et installer les dépendances
 
 > `npm install`
 
-# Démarrer le projet front
+### Démarrer le projet front
 
 > `npm run start`
 
-# Test unitaire
+### Test unitaire
 
 > `npm run test:coverage`
 
@@ -66,9 +66,9 @@ Report disponible ici :
 
 > `front/coverage/jest/icov-report/index.html`
 
-# Test e2e
+### Test e2e
 
-Démarrer dabord l'application:
+Démarrez d'abord l'application:
 
 > `npm run start`
 
