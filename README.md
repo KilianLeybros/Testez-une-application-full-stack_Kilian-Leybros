@@ -70,8 +70,14 @@ Report disponible ici :
 
 ### Test e2e
 
-> `npx nyc instrument --compact=false src instrumented`
-
-Ensuite pour lancer les tests et générer le rapport
+Lancer les tests :
 
 > `npm run e2e`
+
+Ensuite pour générer le rapport
+
+> `npx nyc report --reporter=lcov --reporter=text-summary`
+
+Rapport disponible ici :
+
+> `front/coverage/lcov-report/index.html`
