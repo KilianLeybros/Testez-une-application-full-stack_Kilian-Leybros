@@ -1,7 +1,6 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  projectId: '13khfy',
   videosFolder: 'cypress/videos',
   screenshotsFolder: 'cypress/screenshots',
   fixturesFolder: 'cypress/fixtures',
