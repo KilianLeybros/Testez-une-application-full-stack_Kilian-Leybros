@@ -74,4 +74,4 @@ Report disponible ici :
 
 Ensuite pour lancer les tests et générer le rapport
 
-> `ng e2e`
+> `npm run e2e`
