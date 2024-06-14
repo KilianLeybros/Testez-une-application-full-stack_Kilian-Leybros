@@ -10,17 +10,19 @@ Le projet est réalisé sous java 11 et utilise maven, le jdk 11 et maven est n�
 
 Se rendre à la racine du projet backend (/back) et installer les dépendances grâce à maven :
 
-> mvn clean install
+> `mvn clean install`
 
 ### Test
 
 Pour lancer les tests :
 
-> mvn clean test
+> `mvn clean verify`
 
-Une fois les tests terminés, le rapport de couverture Jacoco sera disponible ici:
+Une fois les tests terminés, les rapports de couverture Jacoco seront disponible ici :
 
-> `back/target/site/jacoco/index.html`
+> `back/target/site/jacoco-integration-test-coverage-report/index.html` => integration
+> `back/target/site/jacoco-merged-test-coverage-report/index.html` => merged
+> `back/target/site/jacoco-unit-test-coverage-report/index.html` => unitaire
 
 ### Démarrer le projet back
 
@@ -68,10 +70,8 @@ Report disponible ici :
 
 ### Test e2e
 
-Démarrez d'abord l'application:
+> `npx nyc instrument --compact=false src instrumented`
 
-> `npm run start`
+Ensuite pour lancer les tests et générer le rapport
 
-Ensuite lancer les tests e2e
-
-> `npm run cypress:run` ou `npm run cypress:open`
+> `npm run e2e`
