@@ -16,7 +16,7 @@ describe('Detail spec', () => {
     cy.intercept('GET', '/api/session/1', { fixture: 'session.json' }).as(
       'sessionDetail'
     );
-
+    cy.wait(1500);
     cy.get('span')
       .contains('Detail')
       .first()
@@ -44,7 +44,7 @@ describe('Detail spec', () => {
     cy.intercept('GET', '/api/session/1', { fixture: 'session.json' }).as(
       'sessionDetail'
     );
-
+    cy.wait(1500);
     cy.get('span')
       .contains('Detail')
       .first()
@@ -63,6 +63,9 @@ describe('Detail spec', () => {
       cy.wrap(elem).click();
     });
 
+    cy.wait('@sessionDetail');
+    cy.wait(500);
+
     cy.get('@sessionDetail.all').should('have.length', 2);
   });
 
@@ -73,6 +76,8 @@ describe('Detail spec', () => {
     cy.intercept('GET', '/api/session/1', {
       fixture: 'session-alreadyparticipate.json',
     }).as('sessionDetail');
+
+    cy.wait(1500);
 
     cy.get('span')
       .contains('Detail')
@@ -91,6 +96,9 @@ describe('Detail spec', () => {
     button.then((elem) => {
       cy.wrap(elem).click();
     });
+
+    cy.wait('@sessionDetail');
+    cy.wait(500);
 
     cy.get('@sessionDetail.all').should('have.length', 2);
   });
