@@ -12,6 +12,7 @@ describe('Form spec', () => {
     cy.loginAdmin();
     cy.wait('@sessions');
 
+    cy.wait(1500);
     cy.get('span')
       .contains('Create')
       .then((elem) => {
@@ -63,6 +64,7 @@ describe('Form spec', () => {
 
     cy.intercept('GET', '/api/session/1', { fixture: 'session.json' });
 
+    cy.wait(1500);
     cy.get('span')
       .contains('Edit')
       .first()
