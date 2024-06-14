@@ -16,11 +16,13 @@ Se rendre à la racine du projet backend (/back) et installer les dépendances g
 
 Pour lancer les tests :
 
-> `mvn clean test`
+> `mvn clean verify`
 
-Une fois les tests terminés, le rapport de couverture Jacoco sera disponible ici:
+Une fois les tests terminés, les rapports de couverture Jacoco seront disponible ici :
 
-> `back/target/site/jacoco/index.html`
+> `back/target/site/jacoco-integration-test-coverage-report/index.html` => integration
+> `back/target/site/jacoco-merged-test-coverage-report/index.html` => merged
+> `back/target/site/jacoco-unit-test-coverage-report/index.html` => unitaire
 
 ### Démarrer le projet back
 
